@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-function App() {
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url).then(async res => {
+      if (res.status !== 200) {
+        setData('uh oh error!');
+      }
+      const data = await res.json();
+      setData(data);
+    });
+  }, [setData, url]);
+
+  return [data];
+}
+
+const App = () => {
+  const [harveyData] = useFetch('/user/harvey');
+  const [blahData] = useFetch('/user/blahblahblah');
+  const [unauthData] = useFetch('/user/unauthorised-user');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        User data: {JSON.stringify(harveyData)}
+      </div>
+      <div>
+        Blah data: {JSON.stringify(blahData)}
+      </div>
+      <div>
+        Unauth data: {JSON.stringify(unauthData)}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 {
   "name": "mock-api-react",
+  "proxy": "http://localhost:9000/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,5 +31,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "connect-api-mocker": "^1.7.0",
+    "express": "^4.17.1"
   }
 }
